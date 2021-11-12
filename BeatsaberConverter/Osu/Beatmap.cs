@@ -71,6 +71,8 @@
 
         public bool SamplesMatchPlaybackRate { get; set; } = false;
 
+        public string BackgroundPath { get; set; }
+
         #endregion General
 
         #region Editor
