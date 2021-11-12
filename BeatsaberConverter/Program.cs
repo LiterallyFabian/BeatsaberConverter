@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using BeatsaberConverter.Osu;
 
 namespace BeatsaberConverter
 {
@@ -8,7 +6,9 @@ namespace BeatsaberConverter
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Beatmap m = new Beatmap(@"X:\Games\osu!\osu!\Songs\23585 Itou Kanako - Kanashimi no Mukou he\Itou Kanako - Kanashimi no Mukou he (FireballFlame) [Hard].osu");
+            Console.WriteLine(m.Artist);
+
         }
     }
 }

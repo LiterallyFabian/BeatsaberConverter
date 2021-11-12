@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BeatsaberConverter.Osu
+﻿namespace BeatsaberConverter.Osu
 {
     internal class TimingPoint
     {
@@ -24,6 +18,10 @@ namespace BeatsaberConverter.Osu
 
         public bool Kiai { get; set; }
 
+        private TimingPoint()
+        {
+        }
+
         public TimingPoint(int time, double beatLength, int meter, SampleSet sampleSet, int sampleIndex, int volume, bool uninherited, bool kiai)
         {
             Time = time;
@@ -34,6 +32,24 @@ namespace BeatsaberConverter.Osu
             Volume = volume;
             Uninherited = uninherited;
             Kiai = kiai;
+        }
+
+        public TimingPoint Parse(string line)
+        {
+            TimingPoint timing = new TimingPoint();
+
+            string[] data = line.Split(",");
+
+            timing.Time = Convert.ToInt32(data[0]);
+            timing.BeatLength = Convert.ToDouble(data[1]);
+            timing.Meter = Convert.ToInt32(data[2]);
+            timing.SampleSet = (SampleSet)Enum.Parse(typeof(SampleSet), data[3]);
+            timing.SampleIndex = Convert.ToInt32(data[4]);
+            timing.Volume = Convert.ToInt32(data[5]);
+            timing.Uninherited = data[6] == "1";
+            timing.Kiai = data[7] != "0";
+
+            return timing;
         }
     }
 }

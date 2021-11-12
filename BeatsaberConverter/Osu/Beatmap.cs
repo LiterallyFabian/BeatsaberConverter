@@ -39,6 +39,8 @@
     {
         #region General
 
+        public int FileFormat { get; set; }
+
         public string AudioFilename { get; set; } = "audio.mp3";
 
         public int AudioLeadIn { get; set; } = 0;
@@ -134,5 +136,10 @@
         public List<Color> Colors { get; set; } = new List<Color>();
 
         public List<HitObject> HitObjects { get; set; } = new List<HitObject>();
+
+        public Beatmap(string path)
+        {
+            new Parser(path, this);
+        }
     }
 }
