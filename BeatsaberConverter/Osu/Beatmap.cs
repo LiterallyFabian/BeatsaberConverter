@@ -75,7 +75,7 @@
 
         #region Editor
 
-        public int[] Bookmarks { get; set; }
+        public List<int> Bookmarks { get; set; } = new List<int>();
 
         public double DistanceSpacing { get; set; }
 
@@ -103,7 +103,7 @@
 
         public string Source { get; set; }
 
-        public string[] Tags { get; set; }
+        public List<string> Tags { get; set; } = new List<string>();
 
         public int BeatmapID { get; set; }
 
