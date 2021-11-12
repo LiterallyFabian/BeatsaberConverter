@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BeatsaberConverter // Note: actual namespace depends on the project name.
+namespace BeatsaberConverter
 {
     public class Program
     {
