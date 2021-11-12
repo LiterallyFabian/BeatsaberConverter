@@ -34,20 +34,22 @@
             Kiai = kiai;
         }
 
-        public TimingPoint Parse(string line)
+        public static TimingPoint Parse(string line)
         {
             TimingPoint timing = new TimingPoint();
 
             string[] data = line.Split(",");
 
+            if (data.Length < 2) return null;
+
             timing.Time = Convert.ToInt32(data[0]);
             timing.BeatLength = Convert.ToDouble(data[1]);
             timing.Meter = Convert.ToInt32(data[2]);
-            timing.SampleSet = (SampleSet)Enum.Parse(typeof(SampleSet), data[3]);
+            timing.SampleSet = (SampleSet)Convert.ToInt32(data[3]);
             timing.SampleIndex = Convert.ToInt32(data[4]);
             timing.Volume = Convert.ToInt32(data[5]);
             timing.Uninherited = data[6] == "1";
-            timing.Kiai = data[7] != "0";
+            timing.Kiai = data[7] == "1";
 
             return timing;
         }

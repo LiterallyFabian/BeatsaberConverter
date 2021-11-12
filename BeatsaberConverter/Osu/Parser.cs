@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace BeatsaberConverter.Osu
 {
@@ -32,6 +33,7 @@ namespace BeatsaberConverter.Osu
         {
             foreach (string line in File.ReadLines(_beatmapPath))
             {
+                Console.WriteLine(line);
                 // not the most beautiful way to set section but hey, why not.
                 if (Regex.IsMatch(line, @"\[.+\]"))
                     _section = (Section)Enum.Parse(typeof(Section), line.Replace("[", "").Replace("]", ""));
@@ -53,19 +55,19 @@ namespace BeatsaberConverter.Osu
                         else if (line.Contains("PreviewTime:"))
                             _beatmap.PreviewTime = GetInt(line);
                         else if (line.Contains("Countdown:"))
-                            _beatmap.Countdown = (Countdown)Enum.Parse(typeof(Countdown), line);
+                            _beatmap.Countdown = (Countdown)GetInt(line);
                         else if (line.Contains("SampleSet:"))
-                            _beatmap.SampleSet = (SampleSet)Enum.Parse(typeof(SampleSet), line);
+                            _beatmap.SampleSet = (SampleSet)Enum.Parse(typeof(SampleSet), line.Replace("SampleSet: ", ""));
                         else if (line.Contains("StackLeniency:"))
                             _beatmap.StackLeniency = GetDouble(line);
                         else if (line.Contains("Mode:"))
-                            _beatmap.Mode = (Mode)Enum.Parse(typeof(Mode), line);
+                            _beatmap.Mode = (Mode)GetInt(line);
                         else if (line.Contains("LetterboxInBreaks:"))
                             _beatmap.LetterboxInBreaks = GetBool(line);
                         else if (line.Contains("UseSkinSprites:"))
                             _beatmap.UseSkinSprites = GetBool(line);
                         else if (line.Contains("OverlayPosition:"))
-                            _beatmap.OverlayPosition = (OverlayPosition)Enum.Parse(typeof(OverlayPosition), line);
+                            _beatmap.OverlayPosition = (OverlayPosition)GetInt(line);
                         else if (line.Contains("SkinPreference:"))
                             _beatmap.SkinPreference = GetString(line);
                         else if (line.Contains("EpilepsyWarning:"))
@@ -158,7 +160,9 @@ namespace BeatsaberConverter.Osu
                     #region TimingPoints
 
                     case Section.TimingPoints:
-                        _beatmap.TimingPoints.Add(new TimingPoint(line));
+                        TimingPoint timing = TimingPoint.Parse(line);
+                        if (timing != null)
+                            _beatmap.TimingPoints.Add(timing);
                         break;
 
                     #endregion TimingPoints
@@ -187,12 +191,12 @@ namespace BeatsaberConverter.Osu
 
         public static int GetInt(string line)
         {
-            return Convert.ToInt32(line.Split(": ")[1].Trim());
+            return Convert.ToInt32(line.Split(":")[1].Trim());
         }
 
         public static double GetDouble(string line)
         {
-            return Convert.ToDouble(line.Split(": ")[1].Trim());
+            return Convert.ToDouble(line.Split(":")[1].Trim(), CultureInfo.InvariantCulture);
         }
 
         public static string GetString(string line)
@@ -218,7 +222,10 @@ namespace BeatsaberConverter.Osu
 
         public static List<string> GetStrings(string line)
         {
-            return line.Split(": ")[1].Split(',').ToList();
+            string[] unparsedTags = line.Split(": ");
+            if (unparsedTags.Length == 2)
+                return unparsedTags[1].Split(',').ToList();
+            return new List<string>();
         }
 
         #endregion Parsers
