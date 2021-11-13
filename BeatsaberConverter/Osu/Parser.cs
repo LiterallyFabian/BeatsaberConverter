@@ -179,10 +179,25 @@ namespace BeatsaberConverter.Osu
                     #region HitObjects
 
                     case Section.HitObjects:
+                        string[] split = line.Split(',');
+                        if (split.Length > 4)
+                        {
+                            if (split.Length > 7)
+                            {
+                                _beatmap.HitObjects.Add(new HitSlider(line));
+                            }
+                            else if (split[3] != "12")
+                            {
+                                _beatmap.HitObjects.Add(new HitCircle(line));
+                            }
+                            else
+                            {
+                                _beatmap.HitObjects.Add(new HitSpinner(line));
+                            }
 
+                            #endregion HitObjects
+                        }
                         break;
-
-                        #endregion HitObjects
                 }
             }
         }

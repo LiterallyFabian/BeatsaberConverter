@@ -18,5 +18,15 @@ namespace BeatsaberConverter.Osu
         public int HitSound { get; set; }
 
         public bool NewCombo { get; set; }
+
+        public HitObject(string line)
+        {
+            string[] split = line.Split(',');
+            X = int.Parse(split[0]);
+            Y = int.Parse(split[1]);
+            Time = int.Parse(split[2]);
+            //NewCombo = split[3] == "1";
+            HitSound = int.Parse(split[4]);
+        }
     }
 }

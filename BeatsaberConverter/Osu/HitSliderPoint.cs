@@ -14,5 +14,11 @@ namespace BeatsaberConverter.Osu
         }
 
         public int Time { get; set; }
+
+        public HitSliderPoint(int x, int y)
+        {
+            X = x;
+            Y = y; 
+        }
     }
 }
