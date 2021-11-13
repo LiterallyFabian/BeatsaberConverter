@@ -159,8 +159,12 @@ namespace BeatsaberConverter.Osu
                     #region TimingPoints
 
                     case Section.TimingPoints:
-                        if (line.Split(",").Length < 2)
-                            _beatmap.TimingPoints.Add(new TimingPoint(line));
+                        if (line.Split(",").Length > 2)
+                        {
+                            TimingPoint? previousTimingPoint = _beatmap.TimingPoints.Count > 0 ? _beatmap.TimingPoints[_beatmap.TimingPoints.Count - 1] : null;
+                            _beatmap.TimingPoints.Add(new TimingPoint(line, previousTimingPoint));
+                        }
+
                         break;
 
                     #endregion TimingPoints

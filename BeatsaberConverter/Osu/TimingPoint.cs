@@ -18,6 +18,11 @@ namespace BeatsaberConverter.Osu
         /// </summary>
         public double ActualBeatLength { get; set; }
 
+        /// <summary>
+        /// The inherited beath length this timing point is based on.
+        /// </summary>
+        public double InheritedBeatLength { get; set; }
+
         public int Meter { get; set; }
 
         public SampleSet SampleSet { get; set; }
@@ -30,14 +35,11 @@ namespace BeatsaberConverter.Osu
 
         public bool Kiai { get; set; }
 
-        public TimingPoint(string line)
+        public TimingPoint(string line, TimingPoint? previousTimingPoint)
         {
             string[] data = line.Split(",");
 
-            if (data.Length < 2) return;
-
             Time = Convert.ToInt32(data[0]);
-            Console.WriteLine(data[1]);
             BeatLength = Convert.ToDouble(data[1], CultureInfo.InvariantCulture);
             Meter = Convert.ToInt32(data[2]);
             SampleSet = (SampleSet)Convert.ToInt32(data[3]);
@@ -45,6 +47,17 @@ namespace BeatsaberConverter.Osu
             Volume = Convert.ToInt32(data[5]);
             Uninherited = data[6] == "1";
             Kiai = data[7] == "1";
+
+            if (Uninherited)
+            {
+                ActualBeatLength = BeatLength;
+                InheritedBeatLength = BeatLength;
+            }
+            else if (previousTimingPoint != null)
+            {
+                InheritedBeatLength = previousTimingPoint.InheritedBeatLength;
+                ActualBeatLength = InheritedBeatLength / (-100 / BeatLength);
+            }
         }
     }
 }
