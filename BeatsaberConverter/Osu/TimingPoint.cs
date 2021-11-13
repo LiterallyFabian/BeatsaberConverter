@@ -6,7 +6,17 @@ namespace BeatsaberConverter.Osu
     {
         public int Time { get; set; }
 
+        /// <summary>
+        /// For uninherited timing points, the duration of a beat, in milliseconds.
+        /// For inherited timing points, a negative inverse slider velocity multiplier, as a percentage.For example, -50 would make all sliders in this timing section twice as fast as SliderMultiplier.
+        /// src: https://osu.ppy.sh/wiki/en/osu%21_File_Formats/Osu_%28file_format%29#timing-points
+        /// </summary>
         public double BeatLength { get; set; }
+
+        /// <summary>
+        /// The duration of a beat, in milliseconds.
+        /// </summary>
+        public double ActualBeatLength { get; set; }
 
         public int Meter { get; set; }
 
@@ -24,37 +34,21 @@ namespace BeatsaberConverter.Osu
         {
         }
 
-        public TimingPoint(int time, double beatLength, int meter, SampleSet sampleSet, int sampleIndex, int volume, bool uninherited, bool kiai)
+        public TimingPoint(string line)
         {
-            Time = time;
-            BeatLength = beatLength;
-            Meter = meter;
-            SampleSet = sampleSet;
-            SampleIndex = sampleIndex;
-            Volume = volume;
-            Uninherited = uninherited;
-            Kiai = kiai;
-        }
-
-        public static TimingPoint Parse(string line)
-        {
-            TimingPoint timing = new TimingPoint();
-
             string[] data = line.Split(",");
 
-            if (data.Length < 2) return null;
+            if (data.Length < 2) return;
 
-            timing.Time = Convert.ToInt32(data[0]);
+            Time = Convert.ToInt32(data[0]);
             Console.WriteLine(data[1]);
-            timing.BeatLength = Convert.ToDouble(data[1], CultureInfo.InvariantCulture);
-            timing.Meter = Convert.ToInt32(data[2]);
-            timing.SampleSet = (SampleSet)Convert.ToInt32(data[3]);
-            timing.SampleIndex = Convert.ToInt32(data[4]);
-            timing.Volume = Convert.ToInt32(data[5]);
-            timing.Uninherited = data[6] == "1";
-            timing.Kiai = data[7] == "1";
-
-            return timing;
+            BeatLength = Convert.ToDouble(data[1], CultureInfo.InvariantCulture);
+            Meter = Convert.ToInt32(data[2]);
+            SampleSet = (SampleSet)Convert.ToInt32(data[3]);
+            SampleIndex = Convert.ToInt32(data[4]);
+            Volume = Convert.ToInt32(data[5]);
+            Uninherited = data[6] == "1";
+            Kiai = data[7] == "1";
         }
     }
 }
