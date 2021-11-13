@@ -141,5 +141,19 @@
         {
             new Parser(path, this);
         }
+
+        internal TimingPoint GetClosestTiming(int time)
+        {
+            TimingPoint closest = TimingPoints[0];
+            foreach (TimingPoint timing in TimingPoints)
+            {
+                if (timing.Time > time)
+                {
+                    break;
+                }
+                closest = timing;
+            }
+            return closest;
+        }
     }
 }
