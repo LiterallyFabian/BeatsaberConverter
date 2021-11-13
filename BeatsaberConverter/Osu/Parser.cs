@@ -33,7 +33,6 @@ namespace BeatsaberConverter.Osu
         {
             foreach (string line in File.ReadLines(_beatmapPath))
             {
-                Console.WriteLine(line);
                 // not the most beautiful way to set section but hey, why not.
                 if (Regex.IsMatch(line, @"\[.+\]"))
                     _section = (Section)Enum.Parse(typeof(Section), line.Replace("[", "").Replace("]", ""));

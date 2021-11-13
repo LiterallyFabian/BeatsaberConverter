@@ -6,9 +6,19 @@ namespace BeatsaberConverter
     {
         public static void Main(string[] args)
         {
-            Beatmap m = new Beatmap(@"X:\Games\osu!\osu!\Songs\23585 Itou Kanako - Kanashimi no Mukou he\Itou Kanako - Kanashimi no Mukou he (FireballFlame) [Hard].osu");
-            Console.WriteLine(m.HitObjects.Count);
 
+
+            // test slider point delays
+            Beatmap m = new Beatmap(@"..\\..\\..\\slider debug.osu");
+
+            foreach (HitObject hitObject in m.HitObjects)
+            {
+                if (hitObject.GetType() == typeof(HitSlider))
+                    foreach (HitSliderPoint hsp in ((HitSlider)hitObject).HitSliderPoints)
+                        Console.WriteLine(hsp.Time);
+                else
+                    Console.WriteLine(hitObject.Time);
+            }
         }
     }
 }
