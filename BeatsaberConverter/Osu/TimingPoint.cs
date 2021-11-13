@@ -1,4 +1,6 @@
-﻿namespace BeatsaberConverter.Osu
+﻿using System.Globalization;
+
+namespace BeatsaberConverter.Osu
 {
     internal class TimingPoint
     {
@@ -43,7 +45,8 @@
             if (data.Length < 2) return null;
 
             timing.Time = Convert.ToInt32(data[0]);
-            timing.BeatLength = Convert.ToDouble(data[1]);
+            Console.WriteLine(data[1]);
+            timing.BeatLength = Convert.ToDouble(data[1], CultureInfo.InvariantCulture);
             timing.Meter = Convert.ToInt32(data[2]);
             timing.SampleSet = (SampleSet)Convert.ToInt32(data[3]);
             timing.SampleIndex = Convert.ToInt32(data[4]);

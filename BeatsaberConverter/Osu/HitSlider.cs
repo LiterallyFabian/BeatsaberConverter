@@ -1,4 +1,6 @@
-﻿namespace BeatsaberConverter.Osu
+﻿using System.Globalization;
+
+namespace BeatsaberConverter.Osu
 {
     internal class HitSlider : HitObject
     {
@@ -53,7 +55,7 @@
             }
 
             Slides = Convert.ToInt32(split[6]);
-            Length = Convert.ToDouble(split[7]);
+            Length = Convert.ToDouble(split[7], CultureInfo.InvariantCulture);
             if (split.Length > 8)
                 EdgeSounds = split[8].Split('|').Select(x => Convert.ToInt32(x)).ToList();
         }
