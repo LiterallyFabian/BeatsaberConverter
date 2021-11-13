@@ -30,10 +30,6 @@ namespace BeatsaberConverter.Osu
 
         public bool Kiai { get; set; }
 
-        private TimingPoint()
-        {
-        }
-
         public TimingPoint(string line)
         {
             string[] data = line.Split(",");
