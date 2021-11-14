@@ -14,6 +14,8 @@ namespace BeatsaberConverter
         {
             Console.WriteLine($"Converting osu! beatmap \"{beatmap.Artist} - {beatmap.Title}\" to BeatSaber format...");
             Info info = new Info(beatmap);
+            
+
         }
     }
 }

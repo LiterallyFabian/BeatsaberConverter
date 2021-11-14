@@ -58,22 +58,15 @@
             string[] expert = { "insane", "expert", "oni", "inner", "ura oni", "rain", "overdose" };
 
             Difficulty closestDiff = Difficulty.ExpertPlus;
-            if (easy.Contains(osuDifficulty))
-            {
+            // check if any of the strings include the osuDifficulty
+            if (easy.Any(m => osuDifficulty.Contains(m)))
                 closestDiff = Difficulty.Easy;
-            }
-            else if (normal.Contains(osuDifficulty))
-            {
+            else if (normal.Any(m => osuDifficulty.Contains(m)))
                 closestDiff = Difficulty.Normal;
-            }
-            else if (hard.Contains(osuDifficulty))
-            {
+            else if (hard.Any(m => osuDifficulty.Contains(m)))
                 closestDiff = Difficulty.Hard;
-            }
-            else if (expert.Contains(osuDifficulty))
-            {
+            else if (expert.Any(m => osuDifficulty.Contains(m)))
                 closestDiff = Difficulty.Expert;
-            }
 
             Console.WriteLine($"Converted osu! difficulty \"{osuDifficulty}\" to BeatSaber difficulty \"{closestDiff}\".");
             return closestDiff;
