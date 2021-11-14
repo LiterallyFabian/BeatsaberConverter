@@ -30,7 +30,7 @@
         /// <summary>
         /// This describes the Beats Per Minute (BPM) of your song.
         /// </summary>
-        public float _beatsPerMinute { get; set; }
+        public double _beatsPerMinute { get; set; }
 
         /// <summary>
         /// See <see href="https://bsmg.wiki/mapping/map-format.html#shuffle">BSMG Wiki#shuffle</see>
@@ -40,17 +40,17 @@
         /// <summary>
         /// See <see href="https://bsmg.wiki/mapping/map-format.html#shuffleperiod">BSMG Wiki#shufflePeriod</see>
         /// </summary>
-        public float _shufflePeriod { get; set; }
+        public double _shufflePeriod { get; set; }
 
         /// <summary>
         /// This controls the start time (in seconds) for the in-game preview of your map.
         /// </summary>
-        public float _previewStartTime { get; set; }
+        public double _previewStartTime { get; set; }
 
         /// <summary>
         /// This controls the duration (in seconds) of the in-game preview of your map.
         /// </summary>
-        public float _previewDuration { get; set; }
+        public double _previewDuration { get; set; }
 
         /// <summary>
         /// This is the local location to your map's audio file.
@@ -75,11 +75,32 @@
         /// <summary>
         /// This describes the offset (in seconds) of the audio in game.
         /// </summary>
-        public float _songTimeOffset { get; set; }
+        public double _songTimeOffset { get; set; }
 
         /// <summary>
         /// This is an array of all <see href="https://bsmg.wiki/mapping/map-format.html#difficulty-beatmap-sets">Difficulty Beatmap Sets</see> defined in the map.
         /// </summary>
         public DifficultyBeatmapSet[] _difficultyBeatmapSets { get; set; }
+
+        public Info(Osu.Beatmap beatmap)
+        {
+            _songName = beatmap.Title;
+            _songAuthorName = beatmap.Artist;
+            _levelAuthorName = beatmap.Creator;
+            _beatsPerMinute = (1 / beatmap.TimingPoints[0].BeatLength * 1000 * 60);
+
+            // i'm not completely sure what these do, but they're required for the map to load properly
+            // it's hopefully fine to leave them as is
+            _shuffle = 0;
+            _shufflePeriod = 0;
+
+            _previewStartTime = beatmap.PreviewTime;
+            _previewDuration = beatmap.HitObjects[beatmap.HitObjects.Count - 1].Time - beatmap.PreviewTime;
+            _songFilename = beatmap.AudioFilename;
+            _coverImageFilename = beatmap.BackgroundPath;
+            _environmentName = "DefaultEnvironment";
+            _allDirectionsEnvironmentName = "DefaultEnvironment";
+            _songTimeOffset = 0;
+        }
     }
 }

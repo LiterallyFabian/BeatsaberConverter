@@ -139,7 +139,9 @@
 
         public Beatmap(string path)
         {
-            new Parser(path, this);
+            Console.WriteLine($"Parsing \"{path}\"...");
+            _ = new Parser(path, this);
+            Console.WriteLine($"\"{path}\" successfully parsed!");
         }
 
         internal TimingPoint GetClosestTiming(int time)
