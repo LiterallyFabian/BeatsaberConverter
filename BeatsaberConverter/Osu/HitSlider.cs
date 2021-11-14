@@ -14,12 +14,22 @@ namespace BeatsaberConverter.Osu
 
         public CurveType Curve { get; set; }
 
-        public List<HitSliderPoint> HitSliderPoints { get; set; } = new List<HitSliderPoint>();
+        public List<SliderCurvePoint> HitSliderPoints { get; set; } = new List<SliderCurvePoint>();
 
         /// <summary>
         /// Amount of times the player has to follow the slider's curve back-and-forth before the slider is complete. It can also be interpreted as the repeat count plus one.
         /// </summary>
         public int Slides { get; set; }
+
+        /// <summary>
+        /// Time when this slide will be hit, in milliseconds from the beginning of the beatmap's audio.
+        /// </summary>
+        public List<int> SlideTimes { get; set; } = new List<int>();
+
+        /// <summary>
+        /// Time in milliseconds that it takes to complete this slider.
+        /// </summary>
+        public int CompletionTime { get; set; }
 
         /// <summary>
         /// Visual length in osu! pixels of the slider.
@@ -31,7 +41,7 @@ namespace BeatsaberConverter.Osu
         /// </summary>
         public List<int> EdgeSounds { get; set; } = new List<int>();
 
-        public HitSlider(string line) : base(line)
+        public HitSlider(string line, Beatmap beatmap) : base(line)
         {
             string[] split = line.Split(',');
             string[] sliderPoints = split[5].Split('|');
@@ -56,17 +66,24 @@ namespace BeatsaberConverter.Osu
                     break;
             }
 
-            // add a new HitSliderPoint for each in the array after the first one
+            // add a new SliderCurvePoint for each in the array after the first one
             for (int i = 1; i < sliderPoints.Length; i++)
             {
                 string[] sliderPoint = sliderPoints[i].Split(':');
-                HitSliderPoints.Add(new HitSliderPoint(Convert.ToInt32(sliderPoint[0]), Convert.ToInt32(sliderPoint[1])));
+                HitSliderPoints.Add(new SliderCurvePoint(Convert.ToInt32(sliderPoint[0]), Convert.ToInt32(sliderPoint[1])));
             }
 
             Slides = Convert.ToInt32(split[6]);
             Length = Convert.ToDouble(split[7], CultureInfo.InvariantCulture);
             if (split.Length > 8)
                 EdgeSounds = split[8].Split('|').Select(x => Convert.ToInt32(x)).ToList();
+
+            // set slider completion time
+            CompletionTime = Convert.ToInt32(Length / (beatmap.SliderMultiplier * 100) * beatmap.GetClosestTiming(Time).ActualBeatLength * Slides);
+
+            // add the time of each slide to the list
+            for (int i = 0; i <= Slides; i++)
+                SlideTimes.Add(Time + (CompletionTime / Slides) * i);
         }
     }
 }

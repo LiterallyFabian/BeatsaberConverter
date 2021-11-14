@@ -186,7 +186,7 @@ namespace BeatsaberConverter.Osu
                         {
                             if (split.Length > 7)
                             {
-                                _beatmap.HitObjects.Add(new HitSlider(line));
+                                _beatmap.HitObjects.Add(new HitSlider(line, _beatmap));
                             }
                             else if (split[3] != "12")
                             {

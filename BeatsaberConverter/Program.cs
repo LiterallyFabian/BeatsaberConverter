@@ -8,10 +8,16 @@ namespace BeatsaberConverter
         {
             // test slider point delays
             Beatmap m = new Beatmap(@"..\\..\\..\\slider debug.osu");
-
+            int previousTime = 0;
             foreach (HitObject hitObject in m.HitObjects)
             {
-                Console.WriteLine(hitObject.Time);
+                if (hitObject.GetType() == typeof(HitSlider))
+                    Console.WriteLine(((HitSlider)hitObject).CompletionTime);
+                else
+                {
+                    // Console.WriteLine("O" + (hitObject.Time - previousTime));
+                    previousTime = hitObject.Time;
+                }
             }
         }
     }
