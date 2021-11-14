@@ -1,23 +1,23 @@
 ﻿namespace BeatsaberConverter.BeatSaber
 {
-    internal enum Difficulty
-    {
-        Easy = 1,
-        Normal = 3,
-        Hard = 5,
-        Expert = 7,
-        ExpertPlus = 9
-    }
-
     internal class DifficultyBeatmap
     {
-        public Difficulty Difficulty { get; set; }
+        internal enum Difficulty
+        {
+            Easy = 1,
+            Normal = 3,
+            Hard = 5,
+            Expert = 7,
+            ExpertPlus = 9
+        }
+
+        public Difficulty difficulty { get; set; }
 
         public string _difficulty
         {
             get
             {
-                return Difficulty.ToString();
+                return difficulty.ToString();
             }
         }
 
@@ -25,7 +25,7 @@
         {
             get
             {
-                return (int)Difficulty;
+                return (int)difficulty;
             }
         }
 
