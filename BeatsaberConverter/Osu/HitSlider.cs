@@ -16,10 +16,19 @@ namespace BeatsaberConverter.Osu
 
         public List<HitSliderPoint> HitSliderPoints { get; set; } = new List<HitSliderPoint>();
 
+        /// <summary>
+        /// Amount of times the player has to follow the slider's curve back-and-forth before the slider is complete. It can also be interpreted as the repeat count plus one.
+        /// </summary>
         public int Slides { get; set; }
 
+        /// <summary>
+        /// Visual length in osu! pixels of the slider.
+        /// </summary>
         public double Length { get; set; }
 
+        /// <summary>
+        /// Hitsounds that play when hitting edges of the slider's curve. The first sound is the one that plays when the slider is first clicked, and the last sound is the one that plays when the slider's end is hit.
+        /// </summary>
         public List<int> EdgeSounds { get; set; } = new List<int>();
 
         public HitSlider(string line) : base(line)

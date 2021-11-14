@@ -2,7 +2,7 @@
 
 namespace BeatsaberConverter.Osu
 {
-    internal class HitSliderPoint
+    internal class HitCurvePoint
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -13,12 +13,10 @@ namespace BeatsaberConverter.Osu
             set { X = (int)value.X; Y = (int)value.Y; }
         }
 
-        public int Time { get; set; }
-
-        public HitSliderPoint(int x, int y)
+        public HitCurvePoint(int x, int y)
         {
             X = x;
-            Y = y; 
+            Y = y;
         }
     }
 }
