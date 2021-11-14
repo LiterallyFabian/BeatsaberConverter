@@ -5,7 +5,7 @@
     /// </summary>
     internal class Event
     {
-        public int _time { get; set; }
+        public double _time { get; set; }
 
         public int _type { get; set; }
 

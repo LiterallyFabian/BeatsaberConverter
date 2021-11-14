@@ -22,7 +22,7 @@
             Any = 8
         }
 
-        public int _time { get; set; }
+        public double _time { get; set; }
         public int _lineIndex { get; set; }
         public int _lineLayer { get; set; }
 

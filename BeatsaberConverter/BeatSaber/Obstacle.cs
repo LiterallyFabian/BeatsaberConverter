@@ -11,7 +11,7 @@
             Crouch = 1
         }
 
-        public int _time { get; set; }
+        public double _time { get; set; }
 
         public int _lineIndex { get; set; }
 
@@ -25,7 +25,7 @@
 
         private Type type { get; set; }
 
-        public int _duration { get; set; }
+        public double _duration { get; set; }
 
         public int _width { get; set; }
     }
