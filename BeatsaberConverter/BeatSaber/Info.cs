@@ -80,7 +80,7 @@
         /// <summary>
         /// This is an array of all <see href="https://bsmg.wiki/mapping/map-format.html#difficulty-beatmap-sets">Difficulty Beatmap Sets</see> defined in the map.
         /// </summary>
-        public DifficultyBeatmapSet[] _difficultyBeatmapSets { get; set; }
+        public List<DifficultyBeatmapSet> _difficultyBeatmapSets { get; set; } = new List<DifficultyBeatmapSet>();
 
         public Info(Osu.Beatmap beatmap)
         {
@@ -101,6 +101,9 @@
             _environmentName = "DefaultEnvironment";
             _allDirectionsEnvironmentName = "DefaultEnvironment";
             _songTimeOffset = 0;
+
+            _difficultyBeatmapSets.Add(new DifficultyBeatmapSet());
+            _difficultyBeatmapSets[0]._difficultyBeatmaps.Add(new DifficultyBeatmap(beatmap));
         }
     }
 }

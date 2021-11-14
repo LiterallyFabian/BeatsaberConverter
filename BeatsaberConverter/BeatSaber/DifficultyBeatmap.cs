@@ -35,6 +35,13 @@
 
         public int _noteJumpStartBeatOffset { get; set; } = 0;
 
+        public DifficultyBeatmap(Osu.Beatmap beatmap)
+        {
+            // clean version of the osu! difficulty name
+            _beatmapFilename = new string(beatmap.Version.Where(m => !Path.GetInvalidFileNameChars().Contains(m)).ToArray()) + ".dat";
+            difficulty = OsuToBeatSaberDiff(beatmap.Version);
+        }
+
         /// <summary>
         /// Tries to convert an osu! difficulty name to beatsaber
         /// Eg. Insane (osu!) -> Expert (BeatSaber).
