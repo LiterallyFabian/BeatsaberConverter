@@ -15,7 +15,7 @@
         /// <summary>
         /// This field describes any additional titles that could go into your song.
         /// </summary>
-        public string _songSubName? { get; set; }
+        public string? _songSubName { get; set; }
 
         /// <summary>
         /// This field describes the main artist, group, band, brand, etc. for the song.
