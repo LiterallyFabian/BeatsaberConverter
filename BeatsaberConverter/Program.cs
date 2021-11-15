@@ -7,7 +7,7 @@ namespace BeatsaberConverter
         public static void Main(string[] args)
         {
             // test slider point delays
-            Beatmap m = new Beatmap(@"..\\..\\..\\Itou Kanako - Kanashimi no Mukou he (FireballFlame) [Hard].osu");
+            Beatmap m = new Beatmap(@"X:\Games\osu!\osu!\Songs\23585 Itou Kanako - Kanashimi no Mukou he\Itou Kanako - Kanashimi no Mukou he (FireballFlame) [Hard].osu");
 
             Converter.ToBeatSaber(m);
         }
