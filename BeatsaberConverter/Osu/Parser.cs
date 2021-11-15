@@ -48,7 +48,12 @@ namespace BeatsaberConverter.Osu
 
                     case Section.General:
                         if (line.Contains("AudioFilename"))
+                        {
                             _beatmap.AudioFilename = GetString(line);
+
+                            DirectoryInfo directoryInfo = new DirectoryInfo(_beatmapPath);
+                            _beatmap.AudioFilepath = Path.Combine(new DirectoryInfo(_beatmapPath).Parent.FullName, _beatmap.AudioFilename);
+                        }
                         else if (line.Contains("AudioLeadIn:"))
                             _beatmap.AudioLeadIn = GetInt(line);
                         else if (line.Contains("PreviewTime:"))
@@ -164,7 +169,6 @@ namespace BeatsaberConverter.Osu
                             TimingPoint? previousTimingPoint = _beatmap.TimingPoints.Count > 0 ? _beatmap.TimingPoints[_beatmap.TimingPoints.Count - 1] : null;
                             _beatmap.TimingPoints.Add(new TimingPoint(line, previousTimingPoint));
                         }
-
                         break;
 
                     #endregion TimingPoints
@@ -172,6 +176,9 @@ namespace BeatsaberConverter.Osu
                     #region Colours
 
                     case Section.Colours:
+                        // not the best place to do this at
+                        _beatmap.BPM = 1 / _beatmap.TimingPoints[0].BeatLength * 1000 * 60;
+
                         if (line.Contains("Combo"))
                             _beatmap.Colors.Add(new Color(line));
                         break;

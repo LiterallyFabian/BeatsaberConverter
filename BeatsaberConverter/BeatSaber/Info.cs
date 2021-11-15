@@ -87,15 +87,15 @@
             _songName = beatmap.Title;
             _songAuthorName = beatmap.Artist;
             _levelAuthorName = beatmap.Creator;
-            _beatsPerMinute = (1 / beatmap.TimingPoints[0].BeatLength * 1000 * 60);
+            _beatsPerMinute = beatmap.BPM;
 
             // i'm not completely sure what these do, but they're required for the map to load properly
             // it's hopefully fine to leave them as is
             _shuffle = 0;
             _shufflePeriod = 0;
 
-            _previewStartTime = beatmap.PreviewTime;
-            _previewDuration = beatmap.HitObjects[beatmap.HitObjects.Count - 1].Time - beatmap.PreviewTime;
+            _previewStartTime = beatmap.PreviewTime / 1000.0;
+            _previewDuration = (beatmap.HitObjects[beatmap.HitObjects.Count - 1].Time - beatmap.PreviewTime) / 1000.0;
             _songFilename = beatmap.AudioFilename;
             _coverImageFilename = beatmap.BackgroundPath;
             _environmentName = "DefaultEnvironment";

@@ -42,6 +42,7 @@
         public int FileFormat { get; set; }
 
         public string AudioFilename { get; set; } = "audio.mp3";
+        public string AudioFilepath { get; set; }
 
         public int AudioLeadIn { get; set; } = 0;
 
@@ -74,6 +75,8 @@
         public bool SamplesMatchPlaybackRate { get; set; } = false;
 
         public string BackgroundPath { get; set; }
+
+        public double BPM { get; set; }
 
         #endregion General
 
