@@ -32,6 +32,10 @@
             {
                 return (int)type;
             }
+            set
+            {
+                type = (Type)value;
+            }
         }
 
         private Type type { get; set; }
@@ -41,6 +45,10 @@
             get
             {
                 return (int)cutDirection;
+            }
+            set
+            {
+                cutDirection = (CutDirection)value;
             }
         }
 
